@@ -12,11 +12,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $ServerSeeder = '\Database\Seeders\ServerSeeder';
+        $run = 'run';
+        
+        if (class_exists($ServerSeeder) && method_exists($ServerSeeder, $run)) {
+            call_user_func([$ServerSeeder, $run]);
+        } else {
+            $this->command->warn("Class $ServerSeeder is not exist, please create one to populate the servers table.");
+        }
     }
 }
